@@ -40,4 +40,8 @@ public class EmployeeService {
         employee.setId(id);
         return employeeRepository.save(employee);
     }
+        public List<Employee> searchByName(String name) {
+    return employeeRepository.findByNameContainingIgnoreCase(name);
+        
+    }
 }
