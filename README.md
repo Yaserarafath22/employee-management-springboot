@@ -5,6 +5,7 @@ A REST API built with **Spring Boot** to manage employee records with full CRUD 
 ## Features
 
 - Create, read, update and delete employee records
+- Search employees by name (case-insensitive, partial match)
 - MySQL database with auto-incrementing IDs
 - Input validation (returns `400` for bad requests)
 - Proper `404` response for non-existent IDs
@@ -40,6 +41,7 @@ CREATE TABLE employees (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   email VARCHAR(100),
+  department VARCHAR(50),
   salary DECIMAL(10,2)
 );
 ```
@@ -63,22 +65,24 @@ Server runs at `http://localhost:8081`
 
 ## API Endpoints
 
-| Method | Endpoint           | Description              |
-|--------|--------------------|--------------------------|
-| GET    | `/employees`       | Get all employees        |
-| GET    | `/employees/{id}`  | Get an employee by ID    |
-| POST   | `/employees`       | Add a new employee       |
-| PUT    | `/employees/{id}`  | Update an employee       |
-| DELETE | `/employees/{id}`  | Delete an employee       |
+| Method | Endpoint                       | Description                        |
+|--------|--------------------------------|------------------------------------|
+| GET    | `/api/employees`               | Get all employees                  |
+| GET    | `/api/employees?name=arun`     | Search employees by name           |
+| GET    | `/api/employees/{id}`          | Get an employee by ID              |
+| POST   | `/api/employees`               | Add a new employee                 |
+| PUT    | `/api/employees/{id}`          | Update an employee                 |
+| DELETE | `/api/employees/{id}`          | Delete an employee                 |
 
 ### Example Request
 
-`POST /employees`
+`POST /api/employees`
 
 ```json
 {
   "name": "Raj",
   "email": "raj@gmail.com",
+  "department": "IT",
   "salary": 50000
 }
 ```
@@ -90,6 +94,7 @@ Server runs at `http://localhost:8081`
   "id": 1,
   "name": "Raj",
   "email": "raj@gmail.com",
+  "department": "IT",
   "salary": 50000
 }
 ```
@@ -106,7 +111,6 @@ Server runs at `http://localhost:8081`
 
 ## Future Improvements
 
-- Search employees by name
 - Simple HTML frontend
 - Pagination
 
